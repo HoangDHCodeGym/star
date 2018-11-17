@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of stars</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>List of stars</h3>
+                </div>
+                <div class="col-md-8">
+                    <div id="custom-search-input">
+                        <form th:action="@{/search}" method="post">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-md" th:name="searchText"
+                                       placeholder="name or id"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info btn-md" type="submit">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <th:block th:if="${message}">
+                <p th:text="${message}">Deleted successfully</p>
+            </th:block>
+            <a th:href="@{/create}">Create a record</a>
+            <div class="table-responsive">
+                <table id="mytable" class="table table-bordered table-striped">
+                    <thead>
+                    <th>CODE</th>
+                    <th>NAME</th>
+                    <th>TYPE</th>
+                    <th>GALAXY</th>
+                    <th>LUMINOSITY</th>
+                    <th>DISTANCE</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                    </thead>
+                    <tbody>
+                    <tr th:each="star : ${stars}">
+                        <td th:text="${star.code}"></td>
+                        <td th:text="${star.name}"></td>
+                        <td th:text="${star.type}"></td>
+                        <td th:text="${star.galaxy}"></td>
+                        <td th:text="${star.luminosity}"></td>
+                        <td th:text="${star.distance}"></td>
+                        <td><a th:href="@{/edit/__${star.code}__}">Edit</a></td>
+                        <td><a th:href="@{/delete/__${star.code}__}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

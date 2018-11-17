@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Create a star</h3>
+            <a th:href="@{/}">Go to list</a>
+            <th:block th:if="${message}">
+                <p th:text="${message}">Star created successfully</p>
+            </th:block>
+            <form th:action="@{/create}" method="post" class="table-responsive">
+                <table id="mytable" class="table table-bordered table-striped" th:object="${star}">
+                    <tr>
+                        <td>CODE</td>
+                        <td>NAME</td>
+                        <td>TYPE</td>
+                        <td>GALAXY</td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="text" th:field="*{code}"></td>
+                        <td><input type="text" th:field="*{name}"></td>
+                        <td>
+                            <select class="form-control" name="type" th:field="*{type}">
+                                <option th:each="type : ${starTypes}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </td>
+                        <td><input type="text" th:field="*{galaxy}"></td>
+                    </tr>
+
+                    <tr>
+                        <td><p th:if="${#fields.hasErrors('code')}" th:errors="*{code}">Code Error</p></td>
+                        <td><p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p></td>
+                        <td><p th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Type Error</p></td>
+                        <td><p th:if="${#fields.hasErrors('galaxy')}" th:errors="*{galaxy}">Galaxy Error</p></td>
+                    </tr>
+
+                    <tr>
+                        <td>LUMINOSITY</td>
+                        <td>DISTANCE</td>
+                    </tr>
+
+
+                    <tr>
+                        <td><input type="text" th:field="*{luminosity}"></td>
+                        <td><input type="text" th:field="*{distance}"></td>
+                    </tr>
+
+                    <tr>
+                        <td><p th:if="${#fields.hasErrors('luminosity')}" th:errors="*{luminosity}">Luminosity Error</p></td>
+                        <td><p th:if="${#fields.hasErrors('distance')}" th:errors="*{distance}">Distance Error</p></td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="submit" class="btn-primary" value="Submit"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
